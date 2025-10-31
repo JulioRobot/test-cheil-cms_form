@@ -1,0 +1,158 @@
+---
+alwaysApply: true
+---
+
+# Laravel CMS Project - Cursor Rules
+
+## Project Overview
+You are working on a Laravel-based Content Management System (CMS) with authentication and role-based access control.
+
+## Core Features
+1. **User Registration** - Public user registration system
+2. **User Login** - Authentication system for registered users
+3. **User Management** - Super users can register other users
+4. **Role Management** - Role-based access control system
+
+## Tech Stack
+- **Language**: PHP
+- **Framework**: Laravel (latest stable version)
+- **Database**: PostgreSQL
+- **ORM**: Eloquent ORM (Laravel default)
+- **Environment**: Docker (PHP 8.1+, Nginx, PostgreSQL)
+
+## User Roles & Permissions
+- **Super User**: Full access, can register other users, manage roles
+- **User Viewer**: Limited access, read-only permissions
+- Additional roles are allowed as needed
+
+## Development Guidelines
+
+### Laravel Best Practices
+1. **MVC Architecture**
+   - Controllers should be thin, delegate business logic to Services
+   - Models should contain relationships and business logic specific to the model
+   - Use Form Requests for validation
+   - Use Resource Controllers for RESTful operations
+
+2. **Authentication & Authorization**
+   - Use Laravel Breeze or Jetstream for authentication scaffolding
+   - Implement middleware for role-based access control
+   - Use Gates and Policies for authorization logic
+   - Always validate and sanitize user input
+   - Use bcrypt/Hash facade for password hashing
+
+3. **Database & Migrations**
+   - Always use migrations for database schema changes
+   - Use seeders for initial data (roles, super user)
+   - Follow Laravel naming conventions for tables (plural, snake_case)
+   - Use foreign key constraints and indexes appropriately
+   - Use Eloquent relationships (hasMany, belongsTo, belongsToMany)
+
+4. **Code Organization**
+   - Use Service classes for complex business logic
+   - Use Repository pattern for data access if needed
+   - Keep routes organized (web.php, auth.php, admin.php)
+   - Use middleware for authentication and authorization checks
+   - Group related routes with prefixes and middleware
+
+5. **Security Best Practices**
+   - Always use CSRF protection
+   - Implement rate limiting on login/register routes
+   - Use Laravel's built-in validation
+   - Sanitize output with Blade's {{ }} syntax (auto-escaping)
+   - Use {!! !!} only when necessary and with trusted content
+   - Implement proper error handling (don't expose sensitive info)
+   - Use environment variables for sensitive configuration
+
+6. **Code Style**
+   - Follow PSR-12 coding standards
+   - Use type hints and return types
+   - Write descriptive method and variable names
+   - Comment complex logic
+   - Use Laravel's helper functions (old(), session(), route(), etc.)
+
+### Routing Structure
+```
+/register - Public registration
+/login - Public login
+/dashboard - Authenticated user dashboard
+/admin/users - Super user: user management
+/admin/roles - Super user: role management
+```
+
+### Database Schema Considerations
+- **users table**: id, name, email, password, role_id, email_verified_at, timestamps
+- **roles table**: id, name, slug, description, timestamps
+- **permissions table**: (optional) if implementing granular permissions
+- Use pivot tables for many-to-many relationships if needed
+
+### API Development (if applicable)
+- Use Laravel Sanctum for API authentication
+- Return consistent JSON responses
+- Use API Resources for data transformation
+- Implement proper HTTP status codes
+
+### Testing
+- Write Feature tests for authentication flows
+- Test role-based access control
+- Test user registration by super users
+- Use factories for test data generation
+
+### Error Handling
+- Use try-catch blocks for database operations
+- Return meaningful error messages
+- Log errors appropriately
+- Use Laravel's exception handler
+
+### Blade Templates
+- Use layouts and components for reusability
+- Implement @can directives for authorization in views
+- Use @auth and @guest directives appropriately
+- Organize views in logical directories (auth/, admin/, dashboard/)
+
+## Required Packages (suggestions)
+- laravel/breeze or laravel/jetstream (authentication)
+- spatie/laravel-permission (optional, for advanced role management)
+- laravel/sanctum (if API is needed)
+
+## Environment Configuration
+- Ensure .env is properly configured for PostgreSQL
+- Set APP_ENV, APP_KEY, APP_DEBUG appropriately
+- Configure DB_CONNECTION=pgsql with proper credentials
+- Set up mail configuration for password resets
+
+## Git Workflow
+- Never commit .env file
+- Keep .env.example updated
+- Write clear commit messages
+- Create feature branches for new features
+
+## Code Review Checklist
+- [ ] Authentication is secure
+- [ ] Authorization checks are in place
+- [ ] Input is validated
+- [ ] Queries are optimized (avoid N+1)
+- [ ] Error handling is implemented
+- [ ] Code follows PSR-12 standards
+- [ ] Sensitive data is not exposed
+- [ ] Tests are written/updated
+
+## Priority Tasks
+1. Set up authentication system (register, login, logout)
+2. Create roles table and seed default roles
+3. Implement role assignment to users
+4. Create middleware for role-based access
+5. Build user management interface for super users
+6. Implement role management interface
+7. Add proper validation and error handling
+8. Write tests for critical flows
+
+## When Assisting
+- Always consider security implications
+- Follow Laravel conventions and best practices
+- Suggest appropriate packages when needed
+- Write clean, maintainable, and documented code
+- Consider scalability and performance
+- Implement proper error handling and validation
+- Use Laravel's built-in features before custom solutions
+
