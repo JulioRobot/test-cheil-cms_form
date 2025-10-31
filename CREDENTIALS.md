@@ -17,6 +17,8 @@ Password: password
 - Role management (create, edit, delete roles)
 - Dashboard with admin panel
 
+> 📋 **More Test Users Available**: See `TEST_CREDENTIALS.md` for a complete list of test accounts (5 users with different roles) included in the example database dump.
+
 ## Database Access
 
 ### Adminer (Web-based Database Manager)
@@ -39,6 +41,15 @@ docker-compose exec db psql -U user_admin_cheil -d user_data_db
 # Via Host (if port 5433 is exposed)
 psql -h localhost -p 5433 -U user_admin_cheil -d user_data_db
 ```
+
+### Database Dump for Testing
+A pre-populated database dump is available:
+- **File**: `example_database.sql` (includes 5 test users and 2 roles)
+- **Usage**: See `DATABASE_DUMP_USAGE.md` for restore instructions
+- **Quick Restore**:
+  ```bash
+  docker exec -i laravel_postgres psql -U user_admin_cheil -d user_data_db < example_database.sql
+  ```
 
 ## Default Roles
 
